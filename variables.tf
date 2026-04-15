@@ -1,11 +1,3 @@
-variable "github_token" {
-  type      = string
-  sensitive = true
-}
-variable "github_owner" {
-  type      = string
-  sensitive = true
-}
 variable "aws_region" {
   type    = string
   default = "us-east-1"
@@ -34,5 +26,11 @@ variable "github_org" {
 
 variable "github_repo" {
   description = "The GitHub repository"
+  type        = string
+}
+
+
+variable "github_environment" {
+  description = "The GitHub environment"
   type        = string
 }
