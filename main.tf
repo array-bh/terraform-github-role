@@ -69,37 +69,36 @@ resource "aws_iam_role_policy" "github_actions_s3_cloudfront_policy" {
   })
 }
 
-
 # ----------------------------
 # 5️⃣ Push GitHub Secrets
 # ----------------------------
 
-resource "github_repository_environment" "development" {
+resource "github_repository_environment" "env" {
   repository  = var.github_repo
-  environment = "development"
+  environment = var.github_environment
 }
 
 resource "github_actions_environment_secret" "aws_region" {
   repository      = var.github_repo
-  environment     = github_repository_environment.development.environment
+  environment     = github_repository_environment.env.environment
   secret_name     = "AWS_REGION"
   plaintext_value = var.aws_region
 }
 resource "github_actions_environment_secret" "cloudfront_distribution_id" {
   repository      = var.github_repo
-  environment     = github_repository_environment.development.environment
+  environment     = github_repository_environment.env.environment
   secret_name     = "CLOUDFRONT_DISTRIBUTION_ID"
   plaintext_value = var.cloudfront_distribution_id
 }
 resource "github_actions_environment_secret" "s3_bucket_name" {
   repository      = var.github_repo
-  environment     = github_repository_environment.development.environment
+  environment     = github_repository_environment.env.environment
   secret_name     = "S3_BUCKET"
   plaintext_value = var.s3_bucket_name
 }
 resource "github_actions_environment_secret" "role_arn" {
   repository      = var.github_repo
-  environment     = github_repository_environment.development.environment
+  environment     = github_repository_environment.env.environment
   secret_name     = "ROLE_ARN"
   plaintext_value = aws_iam_role.github_actions_role.arn
 }
