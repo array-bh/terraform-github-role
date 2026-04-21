@@ -76,6 +76,9 @@ resource "aws_iam_role_policy" "github_actions_s3_cloudfront_policy" {
 resource "github_repository_environment" "env" {
   repository  = var.github_repo
   environment = var.github_environment
+  lifecycle {
+    prevent_destroy = true
+  }
 }
 
 resource "github_actions_environment_secret" "aws_region" {
